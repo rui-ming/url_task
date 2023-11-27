@@ -4,7 +4,7 @@ import java.util.Random;
 
 class UrlController {
     private Map<String, String> urlDatabase = new HashMap<>();
-    private Map<String, Integer> userHistory = new HashMap<>();
+    private Map<User, Integer> userHistory = new HashMap<>();
 
     /** 
      * Returns a shorten url 
@@ -12,7 +12,10 @@ class UrlController {
      * @param user The user that the url can be matched to. 
      * @param url The long url that needs to be shortened. 
      */
-    public string shorten_long_url(String user, String url) {
+    public string shorten_long_url(User user, String url) {
+        if (user == null || url == '') {
+            throw new Error ("Invalid user or empty url")
+        }
         String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder shortUrl = new StringBuilder();
 
@@ -22,9 +25,13 @@ class UrlController {
             shortUrl.append(characters.charAt(index));
         }
 
+        boolean valid 
         // add it to the database and user history 
-        urlDatabase.put(shortUrl, longUrl);
-        userHistory.put(user, userHistory.getUser(user) + 1);
+        if (user.getTierLevel == 2 && userHistory.getUser(user) <= 1000) || (user.getTierLevel == 1
+        && userHistory.getUser(user) <= 100) {
+            urlDatabase.put(shortUrl, longUrl);
+            userHistory.put(user.getUsername, userHistory.getUser(user) + 1);
+        } 
 
         return shortUrl.toString();
     }
@@ -39,5 +46,29 @@ class UrlController {
             throw new Error("URL not valid!")
         }
         return urlDatabase.get(url); 
+    }
+}
+
+class User {
+    private string username; 
+    private string tierLevel; 
+    private int tierRequest; 
+
+    // Getter methods
+    public String getUsername() {
+        return username;
+    }
+
+    public String getTierLevel() {
+        return tierLevel;
+    }
+
+    // Setter methods
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setTierLevel(String tierLevel) {
+        this.tierLevel = tierLevel;
     }
 }
