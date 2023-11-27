@@ -1,0 +1,43 @@
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+class UrlController {
+    private Map<String, String> urlDatabase = new HashMap<>();
+    private Map<String, Integer> userHistory = new HashMap<>();
+
+    /** 
+     * Returns a shorten url 
+     * 
+     * @param user The user that the url can be matched to. 
+     * @param url The long url that needs to be shortened. 
+     */
+    public string shorten_long_url(String user, String url) {
+        String characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder shortUrl = new StringBuilder();
+
+        // goes through the characters and makes a random 6 character url 
+        for (int i = 0; i < 6; i++) {
+            int index = new Random().nextInt(characters.length());
+            shortUrl.append(characters.charAt(index));
+        }
+
+        // add it to the database and user history 
+        urlDatabase.put(shortUrl, longUrl);
+        userHistory.put(user, userHistory.getUser(user) + 1);
+
+        return shortUrl.toString();
+    }
+
+    /** 
+     * Redirects the user if given a short url to the long url 
+     * 
+     * @param url The short url that needs to be matched to the long url. 
+     */
+    public string redirect(String url) {
+        if (urlDatabase.get(url) == null) {
+            throw new Error("URL not valid!")
+        }
+        return urlDatabase.get(url); 
+    }
+}
