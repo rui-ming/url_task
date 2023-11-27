@@ -25,7 +25,6 @@ class UrlController {
             shortUrl.append(characters.charAt(index));
         }
 
-        boolean valid 
         // add it to the database and user history 
         if (user.getTierLevel == 2 && userHistory.getUser(user) <= 1000) || (user.getTierLevel == 1
         && userHistory.getUser(user) <= 100) {
