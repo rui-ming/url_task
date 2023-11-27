@@ -30,7 +30,9 @@ class UrlController {
         && userHistory.getUser(user) <= 100) {
             urlDatabase.put(shortUrl, longUrl);
             userHistory.put(user.getUsername, userHistory.getUser(user) + 1);
-        } 
+        } else {
+            throw new Error ("User has reached the limit on tier requests")
+        }
 
         return shortUrl.toString();
     }
